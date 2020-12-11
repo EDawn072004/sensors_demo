@@ -1,5 +1,5 @@
 {
-    "name": "Sensors_demo",
+    "name": "Sensors_transmitter",
     "description": "",
     "dependencies": {
         "core": "*",
