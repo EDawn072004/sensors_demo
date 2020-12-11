@@ -12,15 +12,14 @@ def on_button_pressed_a():
     basic.clear_screen()
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
-# def on_received_string(receivedString):
-# acceleration = ""
-# if receivedString == "transmitter":
-# basic.show_string("R")
-# radio.send_value(acceleration, input.acceleration(Dimension.X))
-# if receivedString == acceleration:
-# serial.write_string("" + (acceleration))
-# radio.on_received_string(on_received_string)
-basic.show_string("T")
+degrees = 0
+basic.show_leds("""
+    . . . . .
+    . # # # .
+    . . # . .
+    . . # . .
+    . . . . .
+    """)
 input.set_accelerometer_range(AcceleratorRange.EIGHT_G)
 radio.set_group(204)
 
@@ -28,19 +27,17 @@ def on_forever():
     radio.send_number(input.acceleration(Dimension.Z))
 basic.forever(on_forever)
 
-degrees = 0
-
-def compass():
+def on_forever2():
     global degrees
     degrees = input.compass_heading()
     if degrees < 45:
-        basic.show_string("N")
+        radio.send_string("North")
     elif degrees < 135:
-        basic.show_string("E")
+        radio.send_string("East")
     elif degrees < 225:
-        basic.show_string("S")
+        radio.send_string("South")
     elif degrees < 315:
-        basic.show_string("W")
+        radio.send_string("West")
     else:
-        basic.show_string("N")
-basic.forever(compass)
+        radio.send_string("North")
+basic.forever(on_forever2)

@@ -12,8 +12,8 @@ input.onButtonPressed(Button.A, function () {
 })
 let degrees = 0
 basic.showLeds(`
-    # # # # #
-    . . # . .
+    . . . . .
+    . # # # .
     . . # . .
     . . # . .
     . . . . .
@@ -21,24 +21,19 @@ basic.showLeds(`
 input.setAccelerometerRange(AcceleratorRange.EightG)
 radio.setGroup(204)
 basic.forever(function () {
-    degrees = input.compassHeading()
-    if (degrees < 45) {
-        basic.clearScreen()
-        led.toggle(2, 0)
-    } else if (degrees < 135) {
-        basic.clearScreen()
-        led.toggle(4, 2)
-    } else if (degrees < 225) {
-        basic.clearScreen()
-        led.toggle(2, 4)
-    } else if (degrees < 315) {
-        basic.clearScreen()
-        led.toggle(0, 2)
-    } else {
-        basic.clearScreen()
-        led.toggle(2, 0)
-    }
+    radio.sendNumber(input.acceleration(Dimension.Z))
 })
 basic.forever(function () {
-    radio.sendNumber(input.acceleration(Dimension.Z))
+    degrees = input.compassHeading()
+    if (degrees < 45) {
+        radio.sendString("North")
+    } else if (degrees < 135) {
+        radio.sendString("East")
+    } else if (degrees < 225) {
+        radio.sendString("South")
+    } else if (degrees < 315) {
+        radio.sendString("West")
+    } else {
+        radio.sendString("North")
+    }
 })
