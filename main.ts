@@ -1,4 +1,5 @@
-input.onGesture(Gesture.EightG, function on_gesture_eight_g() {
+input.onGesture(Gesture.EightG, function () {
+    basic.clearScreen()
     basic.showLeds(`
         # # # # .
         # . . . .
@@ -7,7 +8,7 @@ input.onGesture(Gesture.EightG, function on_gesture_eight_g() {
         # . . . .
         `)
 })
-input.onButtonPressed(Button.A, function on_button_pressed_a() {
+input.onButtonPressed(Button.A, function () {
     basic.clearScreen()
 })
 let degrees = 0
@@ -20,11 +21,10 @@ basic.showLeds(`
     `)
 input.setAccelerometerRange(AcceleratorRange.EightG)
 radio.setGroup(204)
-basic.forever(function on_forever() {
+basic.forever(function () {
     radio.sendNumber(input.acceleration(Dimension.Z))
 })
-basic.forever(function on_forever2() {
-    
+basic.forever(function () {
     degrees = input.compassHeading()
     if (degrees < 45) {
         radio.sendString("North")
@@ -37,5 +37,4 @@ basic.forever(function on_forever2() {
     } else {
         radio.sendString("North")
     }
-    
 })
