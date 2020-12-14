@@ -10,6 +10,13 @@ input.onGesture(Gesture.EightG, function () {
 })
 input.onButtonPressed(Button.A, function () {
     basic.clearScreen()
+    basic.showLeds(`
+        . . . . .
+        . # # # .
+        . . # . .
+        . . # . .
+        . . . . .
+        `)
 })
 let degrees = 0
 basic.showLeds(`
